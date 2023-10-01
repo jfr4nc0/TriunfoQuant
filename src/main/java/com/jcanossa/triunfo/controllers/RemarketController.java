@@ -1,9 +1,12 @@
 package com.jcanossa.triunfo.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jcanossa.triunfo.services.remarkets.RemarketService;
@@ -44,4 +47,16 @@ public class RemarketController {
 		return response;
 	}
 	
+	@GetMapping("/marketData")
+	public ResponseEntity<String> getMarketData(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.getMarketData(params);
+		return response;
+	}
+	
+	
+	@GetMapping("/cuentasAsociadas")
+	public ResponseEntity<String> getCuentasAsociada(){
+		ResponseEntity<String> response = remarketService.getCuentasAsociadas();
+		return response;
+	}
 }

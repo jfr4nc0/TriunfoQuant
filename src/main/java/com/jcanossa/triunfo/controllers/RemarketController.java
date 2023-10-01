@@ -25,4 +25,10 @@ public class RemarketController {
 		return response;
 	}
 	
+	
+	@GetMapping("/listaSegmentos")
+	public ResponseEntity<String> getListaSegmentos(){
+		ResponseEntity<String> response = remarketService.getListaSegmentosDisponibles();
+		return response;
+	}
 }

@@ -47,7 +47,7 @@ public class RemarketService {
 		return response;
 	}
 	
-	public ResponseEntity<String> getListaSegmentosDisponibles(){
+	public HttpEntity<String> getHeaderAuthToken(){
 		HttpHeaders headers = new HttpHeaders();
 		
 		if (token == null) {this.getToken();}
@@ -56,7 +56,33 @@ public class RemarketService {
 		
 		HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 		
+		return httpEntity;
+	}
+	
+	public ResponseEntity<String> getListaSegmentosDisponibles(){
+		HttpEntity<String> httpEntity = getHeaderAuthToken();
+		
 		String url = remarketUrl+"/rest/segment/all";
+		
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+		
+		return response;
+	}
+	
+	public ResponseEntity<String> getListaInstrumentosResumido(){
+		HttpEntity<String> httpEntity = getHeaderAuthToken();
+		
+		String url = remarketUrl+"/rest/instruments/all";
+		
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+		
+		return response;
+	}
+	
+	public ResponseEntity<String> getListaInstrumentosDetallado(){
+		HttpEntity<String> httpEntity = getHeaderAuthToken();
+		
+		String url = remarketUrl+"/rest/instruments/details";
 		
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
 		

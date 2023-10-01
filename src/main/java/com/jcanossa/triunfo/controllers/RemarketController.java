@@ -31,4 +31,17 @@ public class RemarketController {
 		ResponseEntity<String> response = remarketService.getListaSegmentosDisponibles();
 		return response;
 	}
+	
+	@GetMapping("/listaInstrumentosResumido")
+	public ResponseEntity<String> getListaInstrumentosResumido(){
+		ResponseEntity<String> response = remarketService.getListaInstrumentosResumido();
+		return response;
+	}
+	
+	@GetMapping("/listaInstrumentosDetallado")
+	public ResponseEntity<String> getListaInstrumentosDetallado(){
+		ResponseEntity<String> response = remarketService.getListaInstrumentosDetallado();
+		return response;
+	}
+	
 }

@@ -69,24 +69,28 @@ public class RemarketService {
 		return response;
 	}
 	
+	// Segmentos disponibles
 	public ResponseEntity<String> getListaSegmentosDisponibles(){
 		String url = remarketUrl+"/rest/segment/all";
 		
 		return doGet(url);
 	}
 	
+	// Listado de instrumentos resumido
 	public ResponseEntity<String> getListaInstrumentosResumido(){
 		String url = remarketUrl+"/rest/instruments/all";
 		
 		return doGet(url);
 	}
 	
+	// Listado de instrumentos detallado
 	public ResponseEntity<String> getListaInstrumentosDetallado(){
 		String url = remarketUrl+"/rest/instruments/details";
 		
 		return doGet(url);
 	}
 	
+	// Obtener MarketData
 	public ResponseEntity<String> getMarketData(Map<String, String> params){
 		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/marketdata/get")
 				.queryParam("marketId", params.get("marketId"))
@@ -98,8 +102,9 @@ public class RemarketService {
 		return doGet(url);
 	}
 	
-	public ResponseEntity<String> getTrades(Map<String, String> params){
-		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/marketdata/get")
+	// Consultar los trades realizados para un contrato Matba Rofex en un rango de fechas
+	public ResponseEntity<String> consultarTrades(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/data/getTrades")
 				.queryParam("marketId", params.get("marketId"))
 				.queryParam("symbol", params.get("symbol"))
 				.queryParam("dateFrom", params.get("dateFrom"))
@@ -110,8 +115,132 @@ public class RemarketService {
 		return doGet(url);
 	}
 	
-	public ResponseEntity<String> getCuentasAsociadas(){
+	// Enviar una orden al mercado
+	public ResponseEntity<String> enviarOrdenAlMercado(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/newSingleOrder")
+				.queryParam("marketId", params.get("marketId"))
+				.queryParam("symbol", params.get("symbol"))
+				.queryParam("account", params.get("account"))
+				.queryParam("side", params.get("side"))
+				.queryParam("price", params.get("price"))
+				.queryParam("orderQty", params.get("orderQty"))
+				.queryParam("ordType", params.get("ordType"))
+				.queryParam("timeInForce", params.get("timeInForce"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar el estado de una orden por ClOrderId
+	public ResponseEntity<String> consultarEstadoDeOrdenByClientOrderId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/id")
+				.queryParam("clOrdld", params.get("clOrdld"))
+				.queryParam("proprietary", params.get("proprietary"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar todos los estados por ClientID
+	public ResponseEntity<String> consultarAllEstadosByClientID(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/allById")
+				.queryParam("clOrdld", params.get("clOrdld"))
+				.queryParam("proprietary", params.get("proprietary"))
+				.toUriString();
+
+		return doGet(url);
+	}
+
+	public ResponseEntity<String> consultarEstadoDeOrdenByOrderId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/byOrderId")
+				.queryParam("orderId", params.get("orderId"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar el último estado de los request(clOrderId) asociadas a una cuenta
+	public ResponseEntity<String> consultarUltimosEstadosAsociadosByAccountId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/all")
+				.queryParam("accountId", params.get("accountId"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar estado de una orden por ExecId (ExecutionID)
+	public ResponseEntity<String> consultarEstadoDeOrdenByExecutionId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/byExecId")
+				.queryParam("execId", params.get("execId"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar las órdenes operadas
+	public ResponseEntity<String> consultarOrdenesOperadasByAccountId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/filleds")
+				.queryParam("accountId", params.get("accountId"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Consultar las órdenes activas
+	public ResponseEntity<String> consultarOrdenesActivasByAccountId(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/actives")
+				.queryParam("accountId", params.get("accountId"))
+				.toUriString();
+
+		return doGet(url);
+	}
+	
+	// Reemplazar una orden
+	public ResponseEntity<String> reemplazarOrden(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/actives")
+				.queryParam("clOrdId", params.get("clOrdId"))
+				.queryParam("proprietary", params.get("proprietary"))
+				.queryParam("orderQty", params.get("orderQty"))
+				.queryParam("price", params.get("price"))
+				.toUriString();
+
+		return doGet(url);
+	}	
+	
+	// Cancelar una orden
+	public ResponseEntity<String> cancelarOrden(Map<String, String> params){
+		String url = UriComponentsBuilder.fromHttpUrl(remarketUrl+"/rest/order/cancelById")
+				.queryParam("clOrdId", params.get("clOrdId"))
+				.queryParam("proprietary", params.get("proprietary"))
+				.toUriString();
+
+		return doGet(url);
+	}	
+	
+	// Consultar las cuentas asociadas
+	public ResponseEntity<String> consultarCuentasAsociadas(){
 		String url = remarketUrl+"/rest/accounts";
+		
+		return doGet(url);
+	}
+	
+	// Consultar el reporte de una cuenta
+	public ResponseEntity<String> consultarReporteDeCuenta(Map<String, String> params){
+		String url = remarketUrl+"/rest/risk/accountReport/"+params.get("cuenta").toString();
+		
+		return doGet(url);
+	}
+	
+	// Consultar el reporte de posicion de una cuenta
+	public ResponseEntity<String> consultarReportePosicionDeCuenta(Map<String, String> params){
+		String url = remarketUrl+"/rest/risk/position/getPositions/"+params.get("cuenta").toString();
+		
+		return doGet(url);
+	}
+	
+	// Consultar el reporte detallado de la posicion de una cuenta
+	public ResponseEntity<String> consultarReporteDetalladoDeCuenta(Map<String, String> params){
+		String url = remarketUrl+"/rest/account/"+params.get("cuenta").toString();
 		
 		return doGet(url);
 	}

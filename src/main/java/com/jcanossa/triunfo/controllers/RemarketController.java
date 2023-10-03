@@ -55,13 +55,91 @@ public class RemarketController {
 	
 	@GetMapping("/trades")
 	public ResponseEntity<String> getTrades(@RequestParam Map<String, String> params){
-		ResponseEntity<String> response = remarketService.getMarketData(params);
+		ResponseEntity<String> response = remarketService.getTrades(params);
+		return response;
+	}
+	
+	@GetMapping("/enviarOrdenAlMercado")
+	public ResponseEntity<String> enviarOrdenAlMercado(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.enviarOrdenAlMercado(params);
+		return response;
+	}
+	
+	@GetMapping("/estadoDeOrdenByClientOrdenId")
+	public ResponseEntity<String> estadoDeOrdenByClientOrdenId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarEstadoDeOrdenByClientOrderId(params);
+		return response;
+	}
+	
+	@GetMapping("/estadosDeOrdenesByClientId")
+	public ResponseEntity<String> estadosDeOrdenesByClientId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarAllEstadosByClientID(params);
+		return response;
+	}
+	
+	@GetMapping("/estadoDeOrdenByOrdenId")
+	public ResponseEntity<String> estadoDeOrdenByOrdenId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarEstadoDeOrdenByOrderId(params);
+		return response;
+	}
+	
+	@GetMapping("/ultimosEstadosAsociadosByAccountId")
+	public ResponseEntity<String> ultimoEstadosAsociadosByAccountId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarUltimosEstadosAsociadosByAccountId(params);
+		return response;
+	}
+	
+	@GetMapping("/estadoDeOrdenByExecutionId")
+	public ResponseEntity<String> estadoDeOrdenByExecutionId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarEstadoDeOrdenByExecutionId(params);
+		return response;
+	}
+	
+	@GetMapping("/ordenesOperadasByAccountId")
+	public ResponseEntity<String> ordenesOperadasByAccountId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarOrdenesOperadasByAccountId(params);
+		return response;
+	}
+	
+	@GetMapping("/ordenesActivasByAccountId")
+	public ResponseEntity<String> ordenesActivasByAccountId(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarOrdenesActivasByAccountId(params);
+		return response;
+	}
+	
+	@GetMapping("/reemplazarOrden")
+	public ResponseEntity<String> reemplazarOrden(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.reemplazarOrden(params);
+		return response;
+	}
+	
+	@GetMapping("/cancelarOrden")
+	public ResponseEntity<String> cancelarOrden(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.cancelarOrden(params);
 		return response;
 	}
 	
 	@GetMapping("/cuentasAsociadas")
-	public ResponseEntity<String> getCuentasAsociada(){
-		ResponseEntity<String> response = remarketService.getCuentasAsociadas();
+	public ResponseEntity<String> consultarCuentasAsociadas(){
+		ResponseEntity<String> response = remarketService.consultarCuentasAsociadas();
+		return response;
+	}
+	
+	@GetMapping("/reporteDeCuenta")
+	public ResponseEntity<String> consultarReporteDeCuenta(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarReporteDeCuenta(params);
+		return response;
+	}
+	
+	@GetMapping("/reportePosicionDeCuenta")
+	public ResponseEntity<String> consultarReportePosicionDeCuenta(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarReporteDeCuenta(params);
+		return response;
+	}
+	
+	@GetMapping("/reporteDetalladoDeCuenta")
+	public ResponseEntity<String> consultarReporteDetalladoDeCuenta(@RequestParam Map<String, String> params){
+		ResponseEntity<String> response = remarketService.consultarReporteDetalladoDeCuenta(params);
 		return response;
 	}
 }

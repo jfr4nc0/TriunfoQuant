@@ -55,7 +55,7 @@ public class RemarketController {
 	
 	@GetMapping("/trades")
 	public ResponseEntity<String> getTrades(@RequestParam Map<String, String> params){
-		ResponseEntity<String> response = remarketService.getTrades(params);
+		ResponseEntity<String> response = remarketService.consultarTrades(params);
 		return response;
 	}
 	
@@ -142,4 +142,5 @@ public class RemarketController {
 		ResponseEntity<String> response = remarketService.consultarReporteDetalladoDeCuenta(params);
 		return response;
 	}
+	
 }

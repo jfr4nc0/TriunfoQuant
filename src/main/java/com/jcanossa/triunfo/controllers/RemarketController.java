@@ -15,19 +15,14 @@ import com.jcanossa.triunfo.services.remarkets.RemarketService;
 @RequestMapping("/api")
 public class RemarketController {
 
-	private final RemarketService remarketService;
-	
 	@Autowired
-	public RemarketController(RemarketService remarketService) {
-		this.remarketService = remarketService;
-	}
+	private RemarketService remarketService;
 	
 	@GetMapping("/auth")
 	public ResponseEntity<String> getToken(){
 		ResponseEntity<String> response = remarketService.getToken();
 		return response;
 	}
-	
 	
 	@GetMapping("/listaSegmentos")
 	public ResponseEntity<String> getListaSegmentos(){

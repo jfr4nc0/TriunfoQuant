@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Instrument {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	public List<String> intrumentId; // [marketId, symbol]
 	public String cficode;
 	public String symbol;
-	public Segment segment;
+	public Long idSegment;
 	public Number lowLimitPrice;
 	public Number highLimitPrice;
 	public Number minPriceIncrement;
@@ -36,7 +40,7 @@ public class Instrument {
 	public String securityDescription;
 	public List<String[]> tickPriceRanges;
 	
-	public Instrument(List<String> intrumentId, String cficode, String symbol, Segment segment, Number lowLimitPrice,
+	public Instrument(List<String> intrumentId, String cficode, String symbol, Long idSegment, Number lowLimitPrice,
 			Number highLimitPrice, Number minPriceIncrement, Number minTradeVol, Number maxTradeVol, Number tickSize,
 			Number contractMultiplier, Number roundLot, Number priceConvertionFactor, String maturityDate,
 			String currency, List<String> orderTypes, List<String> timesInForce, String securityType, String settlTyoe,
@@ -46,7 +50,7 @@ public class Instrument {
 		this.intrumentId = intrumentId;
 		this.cficode = cficode;
 		this.symbol = symbol;
-		this.segment = segment;
+		this.idSegment = idSegment;
 		this.lowLimitPrice = lowLimitPrice;
 		this.highLimitPrice = highLimitPrice;
 		this.minPriceIncrement = minPriceIncrement;
@@ -72,8 +76,8 @@ public class Instrument {
 
 	@Override
 	public String toString() {
-		return "Instrument [intrumentId=" + intrumentId + ", cficode=" + cficode + ", symbol=" + symbol + ", segment="
-				+ segment + ", lowLimitPrice=" + lowLimitPrice + ", highLimitPrice=" + highLimitPrice
+		return "Instrument [intrumentId=" + intrumentId + ", cficode=" + cficode + ", symbol=" + symbol + ", ="
+				+ idSegment + ", lowLimitPrice=" + lowLimitPrice + ", highLimitPrice=" + highLimitPrice
 				+ ", minPriceIncrement=" + minPriceIncrement + ", minTradeVol=" + minTradeVol + ", maxTradeVol="
 				+ maxTradeVol + ", tickSize=" + tickSize + ", contractMultiplier=" + contractMultiplier + ", roundLot="
 				+ roundLot + ", priceConvertionFactor=" + priceConvertionFactor + ", maturityDate=" + maturityDate

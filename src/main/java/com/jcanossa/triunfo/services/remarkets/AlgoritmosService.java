@@ -20,33 +20,22 @@ import com.google.gson.JsonParser;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.jcanossa.triunfo.entity.Instrument;
+import com.jcanossa.triunfo.utils.JsonUtils;
 
 @Service
 public class AlgoritmosService {
 	
 	private final Logger logger = LoggerFactory.getLogger(AlgoritmosService.class);
 	
+	private JsonUtils utils = new JsonUtils();
+	private Gson gson = new Gson();
+
 	@Value("${url.dev.local}")
 	private String url;
 	
 	@Autowired
 	public AlgoritmosService() {
 		super();
-	}
-	
-//	public Instrument instrumentInstanceBuilder() {
-//		url += "/listaInstrumentosDetallado";
-//		
-//		ResponseEntity<List<Instrument>> res = restTemplate.getForEntity(url, Instrument.class);
-//		
-//		return instrument;
-//	}
-	
-	@SuppressWarnings("deprecation")
-	private JsonObject getJsonObjectFromString(String jsonString) {
-		JsonParser jsonParser = new JsonParser();
-        JsonObject jsonObject = jsonParser.parse(jsonString).getAsJsonObject();
-        return jsonObject;
 	}
 	
 	public List<Instrument> instrumentListBuilder(){
@@ -58,10 +47,11 @@ public class AlgoritmosService {
 			ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 			
 			if (response.getStatusCode() == HttpStatus.OK) {
-				JsonObject jsonObject = getJsonObjectFromString(response.getBody());
-				JsonArray jsonArray = jsonObject.get("instruments").getAsJsonArray();
+				JsonObject jsonObject = utils.getJsonObjectFromString(response.getBody());
 				
-//				instrumentList = gson.fromJson(body, new TypeToken<List<Instrument>>() {}.getType());
+				instrumentList = gson.fromJson(
+						jsonObject.get("instruments").getAsString(), 
+						new TypeToken<List<Instrument>>() {}.getType());
 				
 			} else {
 				logger.error("HttpStatus = "+response.getStatusCode());

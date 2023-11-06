@@ -16,7 +16,7 @@ public class Instrument {
 	public List<String> intrumentId; // [marketId, symbol]
 	public String cficode;
 	public String symbol;
-	public Long idSegment;
+	public Long idSegment; // [marketSegmentId, marketId]
 	public Number lowLimitPrice;
 	public Number highLimitPrice;
 	public Number minPriceIncrement;

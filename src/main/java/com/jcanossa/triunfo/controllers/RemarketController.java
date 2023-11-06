@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jcanossa.triunfo.services.remarkets.AlgoritmosService;
 import com.jcanossa.triunfo.services.remarkets.RemarketService;
+import com.jcanossa.triunfo.services.remarkets.SegmentService;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +22,9 @@ public class RemarketController {
 	
 	@Autowired
 	private AlgoritmosService algoritmosService;
+	
+	@Autowired
+	private SegmentService segmentService;
 	
 	@GetMapping("/auth")
 	public ResponseEntity<String> getToken(){
@@ -146,5 +150,10 @@ public class RemarketController {
 	public String test(){
 		algoritmosService.instrumentListBuilder();
 		return "OK";
+	}
+	
+	@GetMapping("/actualizarListaSegmentos")
+	public void actualizarListaSegmentos() {
+		segmentService.guardarListaSegmentos(getListaSegmentos().getBody());
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jcanossa.triunfo.services.remarkets.AlgoritmosService;
 import com.jcanossa.triunfo.services.remarkets.RemarketService;
 
 @RestController
@@ -17,6 +18,9 @@ public class RemarketController {
 
 	@Autowired
 	private RemarketService remarketService;
+	
+	@Autowired
+	private AlgoritmosService algoritmosService;
 	
 	@GetMapping("/auth")
 	public ResponseEntity<String> getToken(){
@@ -138,4 +142,9 @@ public class RemarketController {
 		return response;
 	}
 	
+	@GetMapping("/test")
+	public String test(){
+		algoritmosService.instrumentListBuilder();
+		return "OK";
+	}
 }

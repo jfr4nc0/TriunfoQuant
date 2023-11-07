@@ -146,12 +146,6 @@ public class RemarketController {
 		return response;
 	}
 	
-	@GetMapping("/test")
-	public String test(){
-		algoritmosService.instrumentListBuilder();
-		return "OK";
-	}
-	
 	@GetMapping("/actualizarListaSegmentos")
 	public void actualizarListaSegmentos() {
 		segmentService.guardarListaSegmentos(getListaSegmentos().getBody());

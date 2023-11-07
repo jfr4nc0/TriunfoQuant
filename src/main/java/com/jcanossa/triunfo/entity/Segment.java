@@ -15,6 +15,8 @@ public class Segment {
 	private String marketSegmentId;
 	private String marketId;
 	
+	public Segment() {}
+	
 	public Segment(Long id, String marketSegmentId, String marketId) {
 		super();
 		this.id = id;
@@ -22,6 +24,11 @@ public class Segment {
 		this.marketId = marketId;
 	}
 
+	public Segment(String marketSegmentId, String marketId) {
+		this.marketSegmentId = marketSegmentId;
+		this.marketId = marketId;
+	}
+	
 	public Long getId() {
 		return id;
 	}
